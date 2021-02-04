@@ -34,8 +34,7 @@ function course_avg() {
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -49,14 +48,14 @@ function course_avg() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //查询课程不及格率信息
 function fail_rate() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -70,6 +69,7 @@ function fail_rate() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //显示查询成绩排名信息
 function show_course_ranking() {
     var result = document.getElementById("result");
@@ -80,14 +80,14 @@ function show_course_ranking() {
         + "</div>";
     result.innerHTML = show;
 }
+
 //查询成绩排名信息
 function course_ranking() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -111,8 +111,7 @@ function query_all(object) {
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -122,7 +121,11 @@ function query_all(object) {
             document.getElementById("result").innerHTML = xmlhttp.responseText;
         }
     }
+    if (object == "user") {
+        xmlhttp.open("GET", "/studentmanager/UserManage01Servlet?action=query_all_" + object, true);
+    }else{
     xmlhttp.open("GET", "/StudentManagement/AdminDao?action=query_all_" + object, true);
+    }
     xmlhttp.send();
 }
 
@@ -131,8 +134,7 @@ function insert(object) {
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -153,22 +155,19 @@ function insert(object) {
             level = user[2].value.toString();
         else
             level = user[3].value.toString();
-        url = "/StudentManagement/AdminDao?action=insert_user&username=" + username + "&password=" + password + "&level=" + level;
-    }
-    else if (object == "department") {
+        url = "/studentmanager/UserManage01Servlet?action=insert_user&username=" + username + "&password=" + password + "&level=" + level;
+    } else if (object == "department") {
         var department = document.getElementById("show_insert_department").getElementsByTagName("input");
         var dno = department[0].value.toString();
         var dname = department[1].value.toString();
         url = "/StudentManagement/AdminDao?action=insert_department&dno=" + dno + "&dname=" + dname;
-    }
-    else if (object == "class") {
+    } else if (object == "class") {
         var classes = document.getElementById("show_insert_class").getElementsByTagName("input");
         var clno = classes[0].value.toString();
         var clname = classes[1].value.toString();
         var dno = classes[2].value.toString();
         url = "/StudentManagement/AdminDao?action=insert_class&clno=" + clno + "&clname=" + clname + "&dno=" + dno;
-    }
-    else if (object == "student") {
+    } else if (object == "student") {
         var student = document.getElementById("show_insert_student").getElementsByTagName("input");
         var sno = student[0].value.toString();
         var sname = student[1].value.toString();
@@ -180,23 +179,20 @@ function insert(object) {
         var sage = student[4].value;
         var clno = student[5].value.toString();
         url = "/StudentManagement/AdminDao?action=insert_student&sno=" + sno + "&sname=" + sname + "&ssex=" + ssex + "&sage=" + sage + "&clno=" + clno;
-    }
-    else if (object == "course") {
+    } else if (object == "course") {
         var course = document.getElementById("show_insert_course").getElementsByTagName("input");
         var cno = course[0].value.toString();
         var cname = course[1].value.toString();
         var cteacher = course[2].value.toString();
         var ccredit = course[3].value;
         url = "/StudentManagement/AdminDao?action=insert_course&cno=" + cno + "&cname=" + cname + "&cteacher=" + cteacher + "&ccredit=" + ccredit;
-    }
-    else if (object == "sc") {
+    } else if (object == "sc") {
         var sc = document.getElementById("show_insert_sc").getElementsByTagName("input");
         var sno = sc[0].value.toString();
         var cno = sc[1].value.toString();
         var grade = sc[2].value;
         url = "/StudentManagement/AdminDao?action=insert_sc&sno=" + sno + "&cno=" + cno + "&grade=" + grade;
-    }
-    else {
+    } else {
         url = "/StudentManagement/message08.jsp";
     }
     xmlhttp.open("GET", url, true);
@@ -212,36 +208,31 @@ function show_delete(object) {
             + "<input type='text' autofocus='autofocus' name='username' value placeholder='用户名'  required>"
             + "<input id='submit' onclick='delete_user()' type='button' name='submit' value='删除'>"
             + "</div>";
-    }
-    else if (object == "department") {
+    } else if (object == "department") {
         show = "<div id='delete_" + object + "'  class='d_form'>"
             + "<h3>请输入删除院系信息</h3>"
             + "<input type='text' autofocus='autofocus' name='username' value placeholder='院系编号' required>"
             + "<input id='submit' onclick='delete_department()' type='button' name='submit' value='删除'>"
             + "</div>";
-    }
-    else if (object == "class") {
+    } else if (object == "class") {
         show = "<div id='delete_" + object + "'  class='d_form'>"
             + "<h3>请输入删除班级信息</h3>"
             + "<input type='text' autofocus='autofocus' name='clno' value placeholder='班级编号' required>"
             + "<input id='submit' onclick='delete_class()' type='button' name='submit' value='删除'>"
             + "</div>";
-    }
-    else if (object == "student") {
+    } else if (object == "student") {
         show = "<div id='delete_student'  class='d_form'>"
             + "<h3>请输入删除学生信息</h3>"
             + "<input type='text' autofocus='autofocus' name='sno' value placeholder='学号' required>"
             + "<input id='submit' onclick='delete_student()' type='button' name='submit' value='删除'>"
             + "</div>";
-    }
-    else if (object == "course") {
+    } else if (object == "course") {
         show = "<div id='delete_" + object + "'  class='d_form'>"
             + "<h3>请输入删除课程信息</h3>"
             + "<input type='text' autofocus='autofocus' name='clno' value placeholder='课程号' required>"
             + "<input id='submit' onclick='delete_course()' type='button' name='submit' value='删除'>"
             + "</div>";
-    }
-    else if (object == "sc") {
+    } else if (object == "sc") {
         show = "<div id='delete_" + object + "'  class='d_form'>"
             + "<h3>请输入需删除的成绩信息</h3>"
             + "<input type='text' autofocus='autofocus' name='sno' value placeholder='学号' required>"
@@ -270,8 +261,7 @@ function show_alter(object) {
             + "</div>"
             + "<input id='submit' onclick='alter_user()' type='button' name='submit' value='修改'>"
             + "</div>";
-    }
-    else if (object == "department") {
+    } else if (object == "department") {
         show = "<div id='alter_department'  class='d_form'>"
             + "<h3>请输入需要修改的院系信息</h3>"
             + "<p>修改前</p>"
@@ -281,8 +271,7 @@ function show_alter(object) {
             + "<input type='text' name='after_dname' value placeholder='院系名称'>"
             + "<input id='submit' onclick='alter_deprtment()' type='button' name='submit' value='修改'>"
             + "</div>";
-    }
-    else if (object == "class") {
+    } else if (object == "class") {
         show = "<div id='alter_class'  class='d_form'>"
             + "<h3>请输入需要修改的班级信息</h3>"
             + "<p>修改前</p>"
@@ -293,8 +282,7 @@ function show_alter(object) {
             + "<input type='text' name='after_dno' value placeholder='所属院系编号'>"
             + "<input id='submit' onclick='alter_class()' type='button' name='submit' value='修改'>"
             + "</div>";
-    }
-    else if (object == "student") {
+    } else if (object == "student") {
         show = "<div id='alter_student'  class='d_form'>"
             + "<h3>请输入需要修改的学生信息</h3>"
             + "<p>修改前</p>"
@@ -311,8 +299,7 @@ function show_alter(object) {
             + "<input type='text' name='after_clno' value placeholder='所在班级编号'>"
             + "<input id='submit' onclick='alter_student()' type='button' name='submit' value='修改'>"
             + "</div>";
-    }
-    else if (object == "course") {
+    } else if (object == "course") {
         show = "<div id='show_alter_course'  class='d_form'>"
             + "<h3>请输入需要修改的课程信息</h3>"
             + "<p>修改前</p>"
@@ -324,8 +311,7 @@ function show_alter(object) {
             + "<input type='number' name='after_ccredit' value placeholder='学分'>"
             + "<input id='submit' onclick='alter_course()' type='button' name='submit' value='修改'>"
             + "</div>";
-    }
-    else if (object == "sc") {
+    } else if (object == "sc") {
         show = "<div id='alter_sc'  class='d_form'>"
             + "<h3>请输入需要修改的成绩信息</h3>"
             + "<p>修改前</p>"
@@ -338,7 +324,9 @@ function show_alter(object) {
     }
     result.innerHTML = show;
 }
+
 /*------------------------------------显示插入-------------------------------*/
+
 //显示插入用户
 function show_insert_user() {
     var result = document.getElementById("result");
@@ -355,6 +343,7 @@ function show_insert_user() {
         + "</div>";
     result.innerHTML = show;
 }
+
 //显示插入院系
 function show_insert_department() {
     var result = document.getElementById("result");
@@ -366,6 +355,7 @@ function show_insert_department() {
         + "</div>";
     result.innerHTML = show;
 }
+
 //显示插入班级
 function show_insert_class() {
     var result = document.getElementById("result");
@@ -378,6 +368,7 @@ function show_insert_class() {
         + "</div>";
     result.innerHTML = show;
 }
+
 //显示插入学生
 function show_insert_student() {
     var result = document.getElementById("result");
@@ -396,6 +387,7 @@ function show_insert_student() {
         + "</div>";
     result.innerHTML = show;
 }
+
 //显示插入课程
 function show_insert_course() {
     var result = document.getElementById("result");
@@ -409,6 +401,7 @@ function show_insert_course() {
         + "</div>";
     result.innerHTML = show;
 }
+
 //显示插入成绩
 function show_insert_sc() {
     var result = document.getElementById("result");
@@ -421,15 +414,16 @@ function show_insert_sc() {
         + "</div>";
     result.innerHTML = show;
 }
+
 /*-------------------------------------删除------------------------------*/
+
 //删除用户
 function delete_user() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -441,18 +435,18 @@ function delete_user() {
     }
     var user = document.getElementById("delete_user").getElementsByTagName("input");
     var username = user[0].value.toString();
-    var url = "/StudentManagement/AdminDao?action=delete_user&username=" + username;
+    var url = "/studentmanager/UserManage01Servlet?action=delete_user&username=" + username;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //删除院系
 function delete_department() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -468,14 +462,14 @@ function delete_department() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //删除班级
 function delete_class() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -491,14 +485,14 @@ function delete_class() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //删除学生
 function delete_student() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -514,14 +508,14 @@ function delete_student() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //删除课程
 function delete_course() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -537,14 +531,14 @@ function delete_course() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //删除成绩
 function delete_sc() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -557,19 +551,20 @@ function delete_sc() {
     var all = document.getElementById("delete_sc").getElementsByTagName("input");
     var sno = all[0].value.toString();
     var cno = all[1].value.toString();
-    var url = "/StudentManagement/AdminDao?action=delete_sc&sno=" + sno + "&cno="+cno;
+    var url = "/StudentManagement/AdminDao?action=delete_sc&sno=" + sno + "&cno=" + cno;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 /*-----------------------------------修改---------------------------------*/
+
 //修改用户
 function alter_user() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -590,18 +585,18 @@ function alter_user() {
         after_level = user[3].value.toString();
     else
         after_level = user[4].value.toString();
-    var url = "/StudentManagement/AdminDao?action=alter_user&username=" + username + "&after_username=" + after_username + "&after_password=" + after_password + "&after_level=" + after_level;
+    var url = "/studentmanager/UserManage01Servlet?action=alter_user&username=" + username + "&after_username=" + after_username + "&after_password=" + after_password + "&after_level=" + after_level;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //修改院系
 function alter_department() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -619,14 +614,14 @@ function alter_department() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //修改班级
 function alter_class() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -645,14 +640,14 @@ function alter_class() {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //修改学生
 function alter_student() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -673,18 +668,18 @@ function alter_student() {
         after_ssex = all[4].value.toString();
     var after_sage = all[5].value;
     var after_clno = all[6].value.toString();
-    var url = "/StudentManagement/AdminDao?action=alter_student&sno=" + sno + "&after_sno=" + after_sno + "&after_sname=" + after_sname + "&after_ssex=" + after_ssex+"&after_sage="+after_sage+"&after_clno="+after_clno;
+    var url = "/StudentManagement/AdminDao?action=alter_student&sno=" + sno + "&after_sno=" + after_sno + "&after_sname=" + after_sname + "&after_ssex=" + after_ssex + "&after_sage=" + after_sage + "&after_clno=" + after_clno;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //修改课程
 function alter_course() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
@@ -700,18 +695,18 @@ function alter_course() {
     var after_cname = all[2].value.toString();
     var after_cteacher = all[3].value.toString();
     var after_ccredit = all[4].value;
-    var url = "/StudentManagement/AdminDao?action=alter_course&cno=" + cno + "&after_cno=" + after_cno + "&after_cname=" + after_cname + "&after_cteacher=" + after_cteacher+"&after_ccredit="+after_ccredit;
+    var url = "/StudentManagement/AdminDao?action=alter_course&cno=" + cno + "&after_cno=" + after_cno + "&after_cname=" + after_cname + "&after_cteacher=" + after_cteacher + "&after_ccredit=" + after_ccredit;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
 //修改成绩
 function alter_sc() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
         //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
         xmlhttp = new XMLHttpRequest();
-    }
-    else {
+    } else {
         // IE6, IE5 浏览器执行代码
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
