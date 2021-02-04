@@ -1,117 +1,35 @@
 package com.two.dao.impl;
 
 import com.two.dao.CourseDao;
-import com.two.entity.Course;
+import com.two.entity.Course_avg;
+import com.two.entity.Course_fail_rate;
+import com.two.entity.Course_ranking;
 import com.two.util.BaseDaoUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CourseDaoimpl extends BaseDaoUtil implements CourseDao {
-
+public class CourseDaoImpl extends BaseDaoUtil implements CourseDao {
+    private BaseDaoUtil bdu = new BaseDaoUtil();
     @Override
-    public List<Course> selectAll(int pageNo,int pageSize) {
-        String sql="select * from course limit ?,?";
-
-        List<Course> select = null;
-        Object[] objects={(pageNo - 1) * pageSize,pageSize};
-        try {
-            select = this.selectData(sql, objects, Course.class);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-        return select;
+    public List<Course_avg> selAllCourse_avg() throws InvocationTargetException, SQLException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        String sql = "select sc.cno cno,cname,avg(grade) avg from course,sc where course.cno = sc.cno group by cno order by cno";
+        Object[] obj = {};
+        return bdu.selectData(sql, obj, Course_avg.class);
     }
 
     @Override
-    public int getCount() {
-     String sql="select * from course";
-        try {
-            List<Course> select = this.selectData(sql, null, Course.class);
-            return select.size();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-           return 0;
+    public List<Course_fail_rate> selAllCourse_fail_rate() throws InvocationTargetException, SQLException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        String sql = "select cno,(select cname from course where cno = x.cno) cname,cast(100.0*(select count(sno) from sc where grade < 60 and cno = x.cno)/(select count(sno) from sc where cno = x.cno) as decimal(18,2)) rate from sc x group by cno";
+        Object[] obj = {};
+        return bdu.selectData(sql, obj, Course_fail_rate.class);
     }
 
     @Override
-    public int delete(String id) {
-        String sql="delete from course where cno=?";
-        Object[] objects={id};
-        try {
-            int update = this.updateData(sql, objects);
-            return update;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-       return 0;
+    public List<Course_ranking> selAllCourse_ranking() throws InvocationTargetException, SQLException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        String sql = "select cno,student.sno,dname,clname,sname,ssex,sage,grade from department,class,student,sc where student.sno = sc.sno and class.clno = student.clno and department.dno = class.dno and cno = '1' order by grade desc";
+        Object[] obj = {};
+        return bdu.selectData(sql, obj, Course_ranking.class);
     }
-
-    @Override
-    public int insert( String cno,String cname, String cteacher, Integer ccredit) {
-        String sql="insert into course(cno,cname,cteacher,ccredit) values(?,?,?,?)";
-        Object[] objects={cno,cname,cteacher,ccredit};
-        try {
-            int update = this.updateData(sql, objects);
-            return update;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    @Override
-    public List<Course> selectByCname(String cname) {
-        String sql="select * from course where cname=?";
-        Object[] objects={cname};
-        try {
-            List<Course> select = this.selectData(sql, objects, Course.class);
-            return select;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public int update(String cname, String cteacher, Integer ccredit, String cno) {
-        String sql="update course set cname=?,cteacher=?,ccredit=? where cno=?";
-        Object[] objects={cname,cteacher,ccredit,cno};
-        try {
-            int update = this.updateData(sql, objects);
-            return update;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-         return 0;
-    }
-
-
 }

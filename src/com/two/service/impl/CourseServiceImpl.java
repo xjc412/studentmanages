@@ -1,53 +1,74 @@
 package com.two.service.impl;
 
-import com.two.dao.impl.CourseDaoimpl;
-import com.two.entity.Course;
+import com.two.dao.CourseDao;
+import com.two.dao.impl.CourseDaoImpl;
+import com.two.entity.Course_avg;
+import com.two.entity.Course_fail_rate;
+import com.two.entity.Course_ranking;
 import com.two.service.CourseService;
 
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CourseServiceImpl implements CourseService {
-
+    private CourseDao cd = new CourseDaoImpl();
     @Override
-    public List<Course> selectAll(int pageNo , int pageSize) {
-        CourseDaoimpl courseDaoimpl = new CourseDaoimpl();
-        List<Course> courses = courseDaoimpl.selectAll(pageNo, pageSize);
-        return courses;
-
+    public List<Course_avg> selAllCourse_avg() {
+        try {
+            return cd.selAllCourse_avg();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public int getCount() {
-        CourseDaoimpl courseDaoimpl = new CourseDaoimpl();
-        int count = courseDaoimpl.getCount();
-        return count;
+    public List<Course_fail_rate> selAllCourse_fail_rate() {
+        try {
+            return cd.selAllCourse_fail_rate();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public int delete(String id) {
-        CourseDaoimpl courseDaoimpl = new CourseDaoimpl();
-        int delete = courseDaoimpl.delete(id);
-        return delete;
-    }
-
-    @Override
-    public int insert(String cno,String cname, String cteacher, Integer ccredit) {
-        CourseDaoimpl courseDaoimpl = new CourseDaoimpl();
-        int insert = courseDaoimpl.insert(cno,cname, cteacher, ccredit);
-        return insert;
-    }
-
-    @Override
-    public List<Course> selectByCname(String cname) {
-        CourseDaoimpl courseDaoimpl = new CourseDaoimpl();
-        List<Course> courses = courseDaoimpl.selectByCname(cname);
-        return courses;
-    }
-
-    @Override
-    public int update(String cname, String cteacher, Integer ccredit, String cno) {
-        CourseDaoimpl courseDaoimpl = new CourseDaoimpl();
-        int update = courseDaoimpl.update(cname, cteacher, ccredit, cno);
-        return update;
+    public List<Course_ranking> selAllCourse_ranking() {
+        int i = 1;
+        List<Course_ranking> list = null;
+        try {
+            list = cd.selAllCourse_ranking();
+            for (Course_ranking course_ranking : list) {
+                course_ranking.setRanking(i++);
+            }
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
