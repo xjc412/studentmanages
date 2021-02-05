@@ -11,12 +11,14 @@ import java.util.List;
 
 public class UserDaoImpl extends BaseDaoUtil implements UserDao {
     public User loginSelect(String userName, String password) {
-        String sql = "select * from user where userName = ? and password = ?";
+        String sql = "select * from user where username = ? and password = ?";
         Object[] objects = {userName, password};
-        User user = new User();
+        User user = null;
         try {
             List<User> list = super.selectData(sql, objects, User.class);
-            user = list.get(0);
+            if (list.size() != 0) {
+              user = list.get(0);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -33,7 +35,7 @@ public class UserDaoImpl extends BaseDaoUtil implements UserDao {
 
     @Override
     public int register(String userName, String password, String level) {
-        String sql = "insert into user(userName, password, level) values (?, ?, ?)";
+        String sql = "insert into user(username, password, level) values (?, ?, ?)";
         Object[] objects = {userName, password, level};
         int i = 0;
         try {

@@ -40,9 +40,6 @@ public class CourseServlet extends HttpServlet {
         int pageCount = pageUtil.getPageCount();
 
         List<Course> courses = courseService.selectAll(pageNo,pageSize);
-        for (Course cours : courses) {
-            System.out.println(cours);
-        }
         request.setAttribute("list",courses);
         request.setAttribute("pageCount",pageCount);
         request.setAttribute("pageNo",pageNo);

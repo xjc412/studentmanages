@@ -33,10 +33,10 @@
 <h3>请选择操作</h3>
 <div class="title"><a href="javascript:;">用户信息管理</a></div>
 <ul>
-    <li><a  href="javascript:;">查看所有用户</a></li>
-    <li><a  href="javascript:;">新增用户信息</a></li>
-    <li><a  href="javascript:;">删除指定用户</a></li>
-    <li><a  href="javascript:;">修改用户信息</a></li>
+    <li><a  href="./show.jsp?usermanager01=all" target="rightframe">查看所有用户</a></li>
+    <li><a  href="./show.jsp?usermanager01=insert" target="rightframe">新增用户信息</a></li>
+    <li><a  href="./show.jsp?usermanager01=delete" target="rightframe">删除指定用户</a></li>
+    <li><a  href="./show.jsp?usermanager01=alter" target="rightframe">修改用户信息</a></li>
 </ul>
 <div class="title"><a href="javascript:;">院系信息管理</a></div>
 <ul>
@@ -76,6 +76,9 @@
     <li><a href="javascrip:;">删除学生成绩记录</a></li>
     <li><a href="javascrip:;">修改学生成绩记录</a></li>
 </ul>
+<div id="result" class="result">
+
+</div>
 </body>
 <script type="text/javascript">
     $(function(){

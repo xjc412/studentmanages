@@ -14,7 +14,7 @@
     <frame src="./top.jsp" name="toframe">
     <frameset cols="180,*">
         <frame src="./left.jsp" name="leftframe">
-        <frame src="" name="rightframe">
+        <frame src="./show.jsp" name="rightframe">
     </frameset>
 </frameset>
 </html>

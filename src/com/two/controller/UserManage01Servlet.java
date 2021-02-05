@@ -101,7 +101,7 @@ public class UserManage01Servlet extends HttpServlet {
         int i = um.add(obj);
         PrintWriter out = response.getWriter();
         String info = null;
-        if (i == 1) {
+        if (i > 0) {
             info = "用户插入成功！";
         } else {
             info = "错误：用户插入失败！";
