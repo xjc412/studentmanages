@@ -33,24 +33,24 @@
 <h3>请选择操作</h3>
 <div class="title"><a href="javascript:;">用户信息管理</a></div>
 <ul>
-    <li><a  href="./show.jsp?usermanager01=all" target="rightframe">查看所有用户</a></li>
-    <li><a  href="./show.jsp?usermanager01=insert" target="rightframe">新增用户信息</a></li>
-    <li><a  href="./show.jsp?usermanager01=delete" target="rightframe">删除指定用户</a></li>
-    <li><a  href="./show.jsp?usermanager01=alter" target="rightframe">修改用户信息</a></li>
+    <li><a  href="./show.jsp?usermanager=all&name=user" target="rightframe">查看所有用户</a></li>
+    <li><a  href="./show.jsp?usermanager=insert&name=user" target="rightframe">新增用户信息</a></li>
+    <li><a  href="./show.jsp?usermanager=delete&name=user" target="rightframe">删除指定用户</a></li>
+    <li><a  href="./show.jsp?usermanager=alter&name=user" target="rightframe">修改用户信息</a></li>
 </ul>
 <div class="title"><a href="javascript:;">院系信息管理</a></div>
 <ul>
-    <li><a href="javascrip:;">查看所有院系</a></li>
-    <li><a href="javascrip:;">新增院系信息</a></li>
-    <li><a href="javascrip:;">删除指定院系</a></li>
-    <li><a href="javascrip:;">修改院系信息</a></li>
+    <li><a  href="./show.jsp?usermanager=all&name=department" target="rightframe">查看所有院系</a></li>
+    <li><a  href="./show.jsp?usermanager=insert&name=department" target="rightframe">新增院系信息</a></li>
+    <li><a  href="./show.jsp?usermanager=delete&name=department" target="rightframe">删除指定院系</a></li>
+    <li><a  href="./show.jsp?usermanager=alter&name=department" target="rightframe">修改院系信息</a></li>
 </ul>
 <div class="title"><a href="javascript:;">班级信息管理</a></div>
 <ul>
-    <li><a href="javascrip:;">查看所有班级</a></li>
-    <li><a href="javascrip:;">新增班级信息</a></li>
-    <li><a href="javascrip:;">删除指定班级</a></li>
-    <li><a href="javascrip:;">修改班级信息</a></li>
+    <li><a href="FuzzySelectClassRoom" target="rightframe">查看所有班级</a></li>
+    <li><a href="./add_classroom.jsp" target="rightframe">新增班级信息</a></li>
+<%--    <li><a href="javascrip:;">删除指定班级</a></li>--%>
+<%--    <li><a href="javascrip:;">修改班级信息</a></li>--%>
 </ul>
 <div class="title"><a href="javascript:;">学生信息管理</a></div>
 <ul>

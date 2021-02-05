@@ -28,5 +28,11 @@
     <orderEntry type="library" name="mchange-commons-java-0.2.12" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.47" level="project" />
     <orderEntry type="library" name="standard" level="project" />
+    <orderEntry type="library" name="commons-beanutils-1.8.3 (2)" level="project" />
+    <orderEntry type="library" name="commons-dbutils-1.6" level="project" />
+    <orderEntry type="library" name="jstl-1.2" level="project" />
+    <orderEntry type="library" name="junit-4.10" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.38" level="project" />
+    <orderEntry type="library" name="standard-1.1.2" level="project" />
   </component>
 </module>

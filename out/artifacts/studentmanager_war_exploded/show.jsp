@@ -14,23 +14,26 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/admin.js"></script>
     <script type="text/javascript">
-        function user_manager01() {
-            var name = "${param.usermanager01}"
-            if (name != "") {
-                if (name == "all") {
-                    query_all('user')
-                }else if (name == "insert") {
+        function user_manager() {
+            var user = "${param.usermanager}"
+            var name = "${param.name}"
+            if (user != "") {
+                if (user == "all") {
+                    query_all(name)
+                }else if (user == "insert" && name  == "user") {
                     show_insert_user()
-                }else if (name == "delete") {
-                    show_delete('user')
-                }else if (name == "alter") {
-                    show_alter('user')
+                }else if (user == "insert" && name  == "department") {
+                    show_insert_department()
+                }else if (user == "delete") {
+                    show_delete(name)
+                }else if (user == "alter") {
+                    show_alter(name)
                 }
             }
         }
     </script>
 </head>
-<body onload="user_manager01()">
+<body onload="user_manager()">
 <div id="result" class="result">
 
     </div>

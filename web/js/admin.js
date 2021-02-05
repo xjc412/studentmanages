@@ -123,8 +123,10 @@ function query_all(object) {
     }
     if (object == "user") {
         xmlhttp.open("GET", "/studentmanager/UserManage01Servlet?action=query_all_" + object, true);
+    }else if(object=="department"){
+     xmlhttp.open("GET", "/studentmanager/DepartmentServlet?action=query_all_" + object, true);
     }else{
-    xmlhttp.open("GET", "/StudentManagement/AdminDao?action=query_all_" + object, true);
+        xmlhttp.open("GET", "/StudentManagement/AdminDao?action=query_all_" + object, true);
     }
     xmlhttp.send();
 }
@@ -160,7 +162,7 @@ function insert(object) {
         var department = document.getElementById("show_insert_department").getElementsByTagName("input");
         var dno = department[0].value.toString();
         var dname = department[1].value.toString();
-        url = "/StudentManagement/AdminDao?action=insert_department&dno=" + dno + "&dname=" + dname;
+        url = "/studentmanager/DepartmentServlet?action=insert_department&dno=" + dno + "&dname=" + dname;
     } else if (object == "class") {
         var classes = document.getElementById("show_insert_class").getElementsByTagName("input");
         var clno = classes[0].value.toString();
@@ -267,9 +269,9 @@ function show_alter(object) {
             + "<p>修改前</p>"
             + "<input type='text' autofocus='autofocus' name='dno' value placeholder='院系编号' required>"
             + "<p>修改后</p>"
-            + "<input type='text' name='after_dno' value placeholder='院系编号' required>"
-            + "<input type='text' name='after_dname' value placeholder='院系名称'>"
-            + "<input id='submit' onclick='alter_deprtment()' type='button' name='submit' value='修改'>"
+            + "<input type='text' name='after_dno' value placeholder='院系名称' required>"
+            
+            + "<input id='submit' onclick='alter_department()' type='button' name='submit' value='修改'>"
             + "</div>";
     } else if (object == "class") {
         show = "<div id='alter_class'  class='d_form'>"
@@ -458,7 +460,7 @@ function delete_department() {
     }
     var all = document.getElementById("delete_department").getElementsByTagName("input");
     var dno = all[0].value.toString();
-    var url = "/StudentManagement/AdminDao?action=delete_department&dno=" + dno;
+    var url = "/studentmanager/DepartmentServlet?action=delete_department&dno=" + dno;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
@@ -610,7 +612,7 @@ function alter_department() {
     var dno = all[0].value.toString();
     var after_dno = all[1].value.toString();
     var after_dname = all[2].value.toString();
-    var url = "/StudentManagement/AdminDao?action=alter_department&dno=" + dno + "&after_dno=" + after_dno + "&after_dname" + after_dname;
+   var url = "/studentmanager/DepartmentServlet?action=alter_department&dno=" + dno + "&after_dno=" + after_dno + "&after_dname" + after_dname;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }

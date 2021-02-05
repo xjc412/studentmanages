@@ -95,9 +95,9 @@
     <nav>
         <div class="userinfo">
             <ul>
-                <li>姓名</li>
-                <li>管理员</li>
-                <li><a href="#">退出登录</a></li>
+                <li>${sessionScope.user.username}</li>
+                <li>${sessionScope.user.level}</li>
+                <li><a href="./login08.html" target="_top">退出登录</a></li>
                 <li><a href="#">返回首页</a></li>
             </ul>
         </div>
